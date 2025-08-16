@@ -34,5 +34,5 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/jdubby/note-task-organizer.git
-cd note-task-organizer
+git clone https://github.com/jdubby/ai-note-task-organizer.git
+cd ai-note-task-organizer
