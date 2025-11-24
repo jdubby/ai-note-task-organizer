@@ -1,12 +1,29 @@
 {
   "name": "note-task-organizer",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "description": "Privacy-first, AI-assisted note and task organizer",
+  "workspaces": [
+    "packages/*",
+    "client",
+    "server"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "pnpm --parallel --filter './client' --filter './server' dev",
+    "build": "pnpm --recursive build",
+    "test": "pnpm --recursive test",
+    "lint": "pnpm --recursive lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "type-check": "pnpm --recursive type-check",
+    "clean": "pnpm --recursive clean"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
 }

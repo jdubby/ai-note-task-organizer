@@ -1,0 +1,72 @@
+version: '3.8'
+
+# ⚠️ WARNING: Default passwords below are for LOCAL DEVELOPMENT ONLY
+# For production, use strong passwords and store them securely (not in this file)
+# See SECURITY.md for more information
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: note-task-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      # ⚠️ Change these in production!
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: note-task-organizer
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - note-task-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: note-task-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - note-task-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: note-task-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      # ⚠️ Change these in production!
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - note-task-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+volumes:
+  mongodb_data:
+  redis_data:
+  minio_data:
+
+networks:
+  note-task-network:
+    driver: bridge
+
