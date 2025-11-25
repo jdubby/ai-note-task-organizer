@@ -18,7 +18,7 @@ export interface InferenceResponse {
 
 const INFERENCE_SERVICE_URL = process.env.INFERENCE_SERVICE_URL || 'http://localhost:11434';
 const INFERENCE_SERVICE_TOKEN = process.env.INFERENCE_SERVICE_TOKEN || '';
-const DEFAULT_MODEL = process.env.INFERENCE_MODEL || 'phi3.5:mini'; // Ollama model name
+const DEFAULT_MODEL = process.env.INFERENCE_MODEL || 'phi4-mini:3.8b'; // Ollama model name
 
 /**
  * Call self-hosted inference service (Ollama/vLLM)

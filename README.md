@@ -4,6 +4,7 @@ A privacy-first, AI-assisted web application that helps you organize your notes 
 
 ## Features
 
+### Core Functionality
 - **AI-Powered Task Extraction**: Automatically identifies action items and to-do items from your notes using self-hosted language models (Ollama)
 - **Subject Detection**: Uses AI to categorize your notes by subject
 - **Automatic Tagging**: AI extracts relevant tags from your notes for better organization
@@ -14,15 +15,32 @@ A privacy-first, AI-assisted web application that helps you organize your notes 
 - **Real-time Updates**: Socket.IO integration for live job progress and completion notifications
 - **Search Functionality**: Full-text search through your notes and tasks
 - **Privacy Controls**: Mark notes as private for sensitive information
+
+### Client Features
+- **User Authentication**: Login and registration with JWT tokens
+- **Protected Routes**: Automatic authentication checks and redirects
+- **Dashboard**: Overview with statistics, recent notes, and pending tasks
+- **Notes Management**: View, search, and delete notes with category filtering
+- **Tasks Management**: Filter by status/subject, edit tasks, update due dates, mark complete
+- **File Upload Interface**: Drag-and-drop upload with real-time progress tracking
+- **Responsive UI**: Material-UI components with modern, clean design
+- **Category Switching**: Toggle between work and personal categories
+- **Real-time Job Tracking**: Live updates for file processing progress
+
+### Backend Features
 - **Multi-tenant Architecture**: Secure user isolation with JWT authentication
 - **Background Processing**: Asynchronous file processing with BullMQ and Redis
 - **Fallback Extraction**: Heuristic-based task extraction when AI is unavailable
+- **RESTful API**: Type-safe API with comprehensive error handling
 
 ## Tech Stack
 
 ### Frontend
-- **React** with Material-UI
-- **TypeScript** (in progress)
+- **React 19** with **Material-UI v6**
+- **TypeScript** - Fully migrated and type-safe
+- **React Router v7** - Client-side routing
+- **Socket.IO Client** - Real-time updates
+- **Axios** - HTTP client with automatic authentication
 
 ### Backend
 - **Node.js** with **Express** and **TypeScript**

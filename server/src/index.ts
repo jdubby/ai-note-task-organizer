@@ -109,13 +109,13 @@ app.post('/api/upload', authenticateToken, (req: AuthRequest, res: Response, nex
       // Handle file validation errors
       if (err.message && err.message.includes('File type not supported')) {
         res.status(400).json({
-          message: 'File validation error',
+          success: false,
           error: err.message,
         });
         return;
       }
       res.status(400).json({
-        message: 'Upload error',
+        success: false,
         error: err.message || 'Unknown upload error',
       });
       return;
@@ -127,7 +127,10 @@ app.post('/api/upload', authenticateToken, (req: AuthRequest, res: Response, nex
     const files = req.files as Express.Multer.File[] | undefined;
     console.log('Upload request received:', files);
     if (!files || files.length === 0) {
-      return res.status(400).json({ message: 'No files uploaded' });
+      return res.status(400).json({
+        success: false,
+        error: 'No files uploaded',
+      });
     }
 
     const { category, isPrivate } = req.body;
@@ -160,14 +163,17 @@ app.post('/api/upload', authenticateToken, (req: AuthRequest, res: Response, nex
     }
 
     return res.status(202).json({
+      success: true,
       message: 'Files queued for processing',
-      jobs: jobIds,
+      data: {
+        jobs: jobIds,
+      },
     });
   } catch (error: any) {
     console.error('Upload error:', error);
     return res.status(500).json({
-      message: 'Error queuing files',
-      error: error.message,
+      success: false,
+      error: error.message || 'Error queuing files',
     });
   }
 });
